@@ -2,8 +2,10 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { Route, Switch } from "react-router-dom";
+import { ThemeProvider } from '@material-ui/core';
 
 import './App.scss';
+import theme from './theme';
 import { 
   TopNav,
   Home,
@@ -18,26 +20,28 @@ function App(props) {
     dispatch(loadAllLists());
   }, []);
   return (
-    <div className="App">
-      <Helmet>
-        <title>cagematch</title>
-      </Helmet>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Helmet>
+          <title>cagematch</title>
+        </Helmet>
 
-      <TopNav/>
+        <TopNav/>
 
-      <Switch>
-        <Route path="/"><Home /></Route>
-        {/* <Route path="/list/:listId"><ListPage /></Route> */}
-        {/* <Route path="/cage/:id"><CagePage /></Route> */}
-        {/* <Route path="/@/:username"><UserPage /></Route> */}
-      </Switch>
+        <Switch>
+          <Route path="/"><Home /></Route>
+          {/* <Route path="/list/:listId"><ListPage /></Route> */}
+          {/* <Route path="/cage/:id"><CagePage /></Route> */}
+          {/* <Route path="/@/:username"><UserPage /></Route> */}
+        </Switch>
 
-      <header className="App-header">
-        <p>
-          cagematch is under construction
-        </p>
-      </header>
-    </div>
+        <header className="App-header">
+          <p>
+            cagematch is under construction
+          </p>
+        </header>
+      </div>
+    </ThemeProvider>
   );
 }
 

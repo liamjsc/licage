@@ -1,0 +1,8 @@
+@import '../../../constants/variables.scss';
+
+.FeaturedList {
+  height: 500px;
+  border: 1px solid purple;
+  background-color: $cardGray;
+  padding: 1rem;
+}

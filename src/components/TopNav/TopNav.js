@@ -16,7 +16,7 @@ function TopNav(props = {}) {
         <Logo className="site-title" />
         <div className="nav">
           <div className="nav-tab">
-            <Button color="inherit">Rank</Button>
+            <Button color="primary">About</Button>
           </div>
           <div className="nav-tab">
             <Button color="inherit">Favorites</Button>

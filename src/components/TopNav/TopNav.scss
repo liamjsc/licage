@@ -46,5 +46,8 @@
     height: 100%;
     line-height: 60px;
     padding: 0 .7rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
   }
 }

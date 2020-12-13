@@ -1,46 +1,40 @@
 import { connect } from "react-redux";
-import './Home.scss';
-import { 
+import {
+  CircularProgress,
   Container,
-  Grid,
- } from '@material-ui/core';
+} from '@material-ui/core';
 
-function FeaturedList(props) {
-  console.log(props);
-  const { listData } = props;
-  return (
-    <Container>
-      <Grid container className="FeaturedList">
-        <Grid item xs={3}>
-          <div>Rankings</div>
-        </Grid>
-        <Grid container item xs={9}>
-          <Grid item>
-            {listData.entries[0]}
-          </Grid>
-          <Grid item>
-            {listData.entries[1]}
-          </Grid>
+import FeaturedList from './FeaturedList/FeaturedList';
+import './Home.scss';
 
-        </Grid>
-      </Grid>
-    </Container>
-  )
-}
 function Home(props) {
-  const { featuredListId, featuredListData } = props;
+  const { 
+    featuredListId,
+    featuredListData,
+    listsLoading,
+    listsLoaded,
+    entriesById,
+  } = props;
+  console.log('home props:')
+  console.log(props);
+  const notLoaded = !entriesById || listsLoading || !listsLoaded;
   return (
     <div className="Home">
-      <FeaturedList
-        id={featuredListId}
-        listData={featuredListData}
-      />
+      { (notLoaded) ? <CircularProgress /> : (
+        <Container>
+          <FeaturedList
+            id={featuredListId}
+            listData={featuredListData}
+            entriesById={entriesById}
+          />
+        </Container>
+      )}
     </div>
   )
 }
 
 export default connect((state) => {
-  const { 
+  const {
     auth,
     entries,
     list,
@@ -53,8 +47,12 @@ export default connect((state) => {
 
   const featuredListId = state.list.listIds[0];
   const featuredListData = state.list.byId[featuredListId];
+  console.log('featuredListData', featuredListData);
   return {
     featuredListId,
     featuredListData,
+    listsLoaded,
+    listsLoading,
+    entriesById: entries.byId,
   };
 })(Home);
