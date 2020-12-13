@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
-import './TopNav.scss';
-
+import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+
 import Logo from '../Logo/Logo.js';
+import './TopNav.scss';
 
 function TopNav(props = {}) {
   const {
@@ -13,10 +14,14 @@ function TopNav(props = {}) {
   return (
     <div className="TopNav">
       <div className="site-title-nav">
-        <Logo className="site-title" />
+        <Link style={{ textDecoration: 'none' }} to="/">
+          <Logo className="site-title" />
+        </Link>
         <div className="nav">
           <div className="nav-tab">
-            <Button color="primary">About</Button>
+            <Link style={{ textDecoration: 'none' }} to="/about">
+              <Button color="primary">About</Button>
+            </Link>
           </div>
           <div className="nav-tab">
             <Button color="inherit">Favorites</Button>

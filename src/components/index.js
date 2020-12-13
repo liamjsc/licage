@@ -1,7 +1,9 @@
-import TopNav from './TopNav/TopNav';
+import About from './About/About';
 import Home from './Home/Home';
+import TopNav from './TopNav/TopNav';
 
 export { 
-  TopNav,
+  About,
   Home,
+  TopNav,
 };

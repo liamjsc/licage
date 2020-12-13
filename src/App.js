@@ -7,6 +7,7 @@ import { ThemeProvider } from '@material-ui/core';
 import './App.scss';
 import theme from './theme';
 import { 
+  About,
   TopNav,
   Home,
   // ListPage,
@@ -29,6 +30,7 @@ function App(props) {
         <TopNav/>
 
         <Switch>
+          <Route path="/about"><About /></Route>
           <Route path="/"><Home /></Route>
           {/* <Route path="/list/:listId"><ListPage /></Route> */}
           {/* <Route path="/cage/:id"><CagePage /></Route> */}
