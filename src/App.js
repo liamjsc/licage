@@ -1,13 +1,21 @@
+import { Helmet } from 'react-helmet'
 import logo from './logo.svg';
 import './App.css';
+import { TopNav } from './components/index';
 
 function App() {
   return (
     <div className="App">
+      <Helmet>
+        <title>cagematch</title>
+      </Helmet>
+
+      <TopNav/>
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          cagematch is under construction
         </p>
         <a
           className="App-link"
