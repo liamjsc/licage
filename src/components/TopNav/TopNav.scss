@@ -7,10 +7,32 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
-.site-title {
-  margin: 0 1rem;
-  font-size: 30px;
-  color: $lightPurple;
+.site-title-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+  
+  .site-title {
+    margin: 0 1rem;
+    font-size: 40px;
+    color: $lightPurple;
+  }
+  
+  .nav {
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    .nav-tab {
+      padding: 0 .7rem
+    }
+  }
+}
+.site-buttons {
+
 }

@@ -1,9 +1,22 @@
-import { Helmet } from 'react-helmet'
-import logo from './logo.svg';
-import './App.scss';
-import { TopNav } from './components/index';
+import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
+import { Route, Switch } from "react-router-dom";
 
-function App() {
+import './App.scss';
+import { 
+  TopNav,
+  Home,
+  // ListPage,
+  // UserPage,
+ } from './components/index';
+import { loadAllLists } from './actions/list';
+
+function App(props) {
+  const { dispatch } = props;
+  useEffect(() => {
+    dispatch(loadAllLists());
+  }, []);
   return (
     <div className="App">
       <Helmet>
@@ -12,22 +25,21 @@ function App() {
 
       <TopNav/>
 
+      <Switch>
+        <Route path="/"><Home /></Route>
+        {/* <Route path="/list/:listId"><ListPage /></Route> */}
+        {/* <Route path="/cage/:id"><CagePage /></Route> */}
+        {/* <Route path="/@/:username"><UserPage /></Route> */}
+      </Switch>
+
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           cagematch is under construction
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
     </div>
   );
 }
 
-export default App;
+// connect to store just to receive dispatch as a prop
+export default connect()(App);
