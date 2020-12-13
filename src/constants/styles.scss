@@ -1,16 +1,6 @@
-html, body {
-  margin: 0;
-  height: 100%;
-  cursor: default;
-}
 body {
   font-family: 'Roboto Mono', monospace;
   background-color: #121212;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
 }
 .teaser {
   height: 50%;
@@ -27,12 +17,6 @@ body {
   color: green;
 }
 
-.formWrapper {
-  height: 75%;
-  color: #E1E1E1;
-  width: 15rem;
-  max-width: 75%;
-}
 .input {
   display: flex;
   flex-direction: column;

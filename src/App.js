@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet'
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import { TopNav } from './components/index';
 
 function App() {
