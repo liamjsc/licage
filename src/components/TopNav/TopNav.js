@@ -22,7 +22,7 @@ function TopNav(props = {}) {
         <div className="nav">
           <div className="nav-tab">
             <Link style={{ textDecoration: 'none' }} to="/about">
-              <Button color="primary.dark">About</Button>
+              <Button color="primary">About</Button>
             </Link>
           </div>
           <div className="nav-tab">

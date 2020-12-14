@@ -12,7 +12,7 @@ import {
   SignInPage,
   TopNav,
   // ListPage,
-  // UserPage,
+  UserPage,
  } from './components/index';
 import { loadAllLists } from './actions/list';
 
@@ -33,10 +33,10 @@ function App(props) {
         <Switch>
           <Route path="/about"><About /></Route>
           <Route path="/login"><SignInPage /></Route>
+          <Route path="/@/:username"><UserPage /></Route>
           <Route path="/"><Home /></Route>
           {/* <Route path="/list/:listId"><ListPage /></Route> */}
           {/* <Route path="/cage/:id"><CagePage /></Route> */}
-          {/* <Route path="/@/:username"><UserPage /></Route> */}
         </Switch>
       </div>
     </ThemeProvider>
