@@ -25,8 +25,6 @@ class SignInPage extends Component {
   }
 
   onClickLogin = () => {
-    console.log('onClickLogin');
-    console.log(this.state);
     const valid = validate(this.state);
     if (!valid) return this.setState({ error: 'Double check the form' })
     const { email, username, password } = this.state;
@@ -41,7 +39,6 @@ class SignInPage extends Component {
         this.props.history.push('/');
       })
       .catch((e) => {
-        console.log(e);
         this.setState({
           posting: false,
           error: 'That combination did not work'
@@ -50,7 +47,6 @@ class SignInPage extends Component {
   }
 
   onChangeUsername = (e) => {
-    console.log(e);
     this.setState({
       username: e.target.value,
       error: ''
