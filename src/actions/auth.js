@@ -1,13 +1,12 @@
 import * as actionTypes from '../util/actionTypes';
 import { api } from '../config'
-import { AsyncStorage } from 'react-native';
 
 /**
  * return user object or null
  */
-export async function getUserFromDevice() {
+export function getUserFromDevice() {
   console.log('getUserFromDevice');
-  const userString = await AsyncStorage.getItem('user');
+  const userString = localStorage.getItem('user');
   console.log(userString);
   return userString ? JSON.parse(userString) : null;;
 }
@@ -42,11 +41,11 @@ export function createAccount(credentials) {
         }
         return data.json();
       })
-      .then(async results => {
+      .then(results => {
         console.log('api register response');
         console.log(results);
         const { id, username, email } = results;
-        await AsyncStorage.setItem('user', JSON.stringify({ id, username, email })); // who is the user of this device
+        localStorage.setItem('user', JSON.stringify({ id, username, email })); // who is the user of this device
         const action = { type: actionTypes.LOAD_USER_SUCCESS, user: results };
         dispatch(action);
         return dispatch(setUser({ id, username, email }));
@@ -78,10 +77,10 @@ export function login(credentials) {
         }
         return data.json();
       })
-      .then(async results => {
+      .then(results => {
         console.log('loginaction login results...');
         console.log(results);
-        await AsyncStorage.setItem('user', JSON.stringify(results)); // who is the user of this device
+        localStorage.setItem('user', JSON.stringify(results)); // who is the user of this device
         dispatch(setUser(results))
         const action = { type: actionTypes.LOAD_USER_SUCCESS, user: results };
         dispatch(action);
@@ -96,11 +95,10 @@ export function login(credentials) {
 }
 
 export function signOut() {
-  return async function (dispatch, getState) {
+  return function (dispatch, getState) {
     console.log('signing out');
-    await AsyncStorage.removeItem('user', () => {
-      return dispatch(setUser(null));
-    });
+    localStorage.removeItem('user');
+    return dispatch(setUser(null));
   };
 }
 

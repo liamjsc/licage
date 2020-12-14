@@ -9,7 +9,9 @@ import './TopNav.scss';
 
 function TopNav(props = {}) {
   const {
-    username = 'liamjsc',
+    displayName,
+    isLoggedIn,
+    username,
   } = props;
   return (
     <div className="TopNav">
@@ -20,7 +22,7 @@ function TopNav(props = {}) {
         <div className="nav">
           <div className="nav-tab">
             <Link style={{ textDecoration: 'none' }} to="/about">
-              <Button color="primary">About</Button>
+              <Button color="primary.dark">About</Button>
             </Link>
           </div>
           <div className="nav-tab">
@@ -42,14 +44,24 @@ function TopNav(props = {}) {
           <NotificationsNoneIcon />
         </div>
         <div className="site-button">
-          <Link style={{ textDecoration: 'none' }} to="/login">
-            <Button
-              color="secondary"
-              variant="contained"
-            >
-              Sign in
-            </Button>
-          </Link>
+          {
+            isLoggedIn ? (
+              <Link to={`/@/${username}`}>
+                <Button color="primary">
+                  {displayName}
+                </Button>
+              </Link>
+            ) : (
+              <Link style={{ textDecoration: 'none' }} to="/login">
+                <Button
+                  color="secondary"
+                  variant="contained"
+                >
+                  Sign in
+                </Button>
+              </Link>
+            )
+          }
         </div>
         {/* <AccountCenter/> */}
       </div>
@@ -59,5 +71,11 @@ function TopNav(props = {}) {
 
 export default connect((state) => {
   console.log(state);
-  return {};
+  const { auth: { user } } = state;
+  const displayName = user && (user.username || user.email)
+  return {
+    isLoggedIn: !!displayName,
+    displayName,
+    username: user && user.username,
+  };
 })(TopNav);
