@@ -14,12 +14,38 @@ import {
   // ListPage,
   UserPage,
  } from './components/index';
+import {
+  getUserFromDevice,
+  setUser,
+} from './actions/auth';
+import {
+  loadUser,
+} from './actions/users';
 import { loadAllLists } from './actions/list';
 
 function App(props) {
   const { dispatch } = props;
   useEffect(() => {
-    dispatch(loadAllLists());
+    // check auth
+    const user = getUserFromDevice();
+    dispatch(setUser(user));
+    if (user) {
+      return dispatch(loadUser(user ? user.id : null))
+      .then(() => {
+        return dispatch(loadAllLists(user))
+          // .then(() => {
+          //   console.log('calling onAppReady', onAppReady);
+          //   onAppReady && onAppReady();
+          // })
+          .catch(() => {
+            console.log('error did mount App')
+          });
+        })
+      .catch((error) => {
+        console.log(error);
+      })
+    }
+    return dispatch(loadAllLists())
   }, []);
   return (
     <ThemeProvider theme={theme}>
