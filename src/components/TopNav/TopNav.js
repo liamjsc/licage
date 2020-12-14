@@ -41,7 +41,16 @@ function TopNav(props = {}) {
         <div className="site-button">
           <NotificationsNoneIcon />
         </div>
-        <div className="site-button">{username}</div>
+        <div className="site-button">
+          <Link style={{ textDecoration: 'none' }} to="/login">
+            <Button
+              color="secondary"
+              variant="contained"
+            >
+              Sign in
+            </Button>
+          </Link>
+        </div>
         {/* <AccountCenter/> */}
       </div>
     </div>

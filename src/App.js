@@ -8,8 +8,9 @@ import './App.scss';
 import theme from './theme';
 import { 
   About,
-  TopNav,
   Home,
+  SignInPage,
+  TopNav,
   // ListPage,
   // UserPage,
  } from './components/index';
@@ -31,17 +32,12 @@ function App(props) {
 
         <Switch>
           <Route path="/about"><About /></Route>
+          <Route path="/login"><SignInPage /></Route>
           <Route path="/"><Home /></Route>
           {/* <Route path="/list/:listId"><ListPage /></Route> */}
           {/* <Route path="/cage/:id"><CagePage /></Route> */}
           {/* <Route path="/@/:username"><UserPage /></Route> */}
         </Switch>
-
-        <header className="App-header">
-          <p>
-            cagematch is under construction
-          </p>
-        </header>
       </div>
     </ThemeProvider>
   );
