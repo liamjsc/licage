@@ -46,8 +46,8 @@ function TopNav(props = {}) {
         <div className="site-button">
           {
             isLoggedIn ? (
-              <Link to={`/@/${username}`}>
-                <Button color="primary">
+              <Link style={{ textDecoration: 'none' }} to={`/@/${username}`}>
+                <Button color="secondary">
                   {displayName}
                 </Button>
               </Link>
