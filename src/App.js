@@ -8,10 +8,11 @@ import './App.scss';
 import theme from './theme';
 import { 
   About,
+  BrowsePage,
   Home,
   SignInPage,
   TopNav,
-  // ListPage,
+  ListDetail,
   UserPage,
  } from './components/index';
 import {
@@ -59,9 +60,10 @@ function App(props) {
         <Switch>
           <Route path="/about"><About /></Route>
           <Route path="/login"><SignInPage /></Route>
+          <Route path="/browse"><BrowsePage /></Route>
           <Route path="/@/:username"><UserPage /></Route>
+          <Route path="/list/:listId"><ListDetail /></Route>
           <Route path="/"><Home /></Route>
-          {/* <Route path="/list/:listId"><ListPage /></Route> */}
           {/* <Route path="/cage/:id"><CagePage /></Route> */}
         </Switch>
       </div>

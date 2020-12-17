@@ -16,4 +16,10 @@ const theme = createMuiTheme({
   },
 });
 
+theme.props = {
+  MuiLink: {
+    underline: 'none',
+  }
+}
+
 export default theme;

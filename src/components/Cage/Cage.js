@@ -1,5 +1,6 @@
 import {
   Box,
+  Card,
   Grid,
   Paper,
   Table,
@@ -10,9 +11,9 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-import './FeaturedList.scss';
+import './Cage.scss';
 
-function FeaturedList(props) {
+function Cage(props) {
   console.log(props);
   const {
     listData: {
@@ -31,10 +32,10 @@ function FeaturedList(props) {
   const leftEntry = entriesById[entries[0]];
   const rightEntry = entriesById[entries[1]];
   return (
-    <div style={{borderColor: 'teal', borderWidth: '1px'}} className="FeaturedList">
+    <div style={{ borderColor: 'teal', borderWidth: '1px' }} className="FeaturedList">
       <Typography variant="h3">{title}</Typography>
       <Grid container justify="space-around">
-        <Grid component={Paper} elevation={2} item xs={2}>
+        <Grid component={Card} variant="outlined" item xs={2}>
           <Box spacing={3}>
             <div>{description}</div>
             <div>{"Click the one you like more - left or right"}</div>
@@ -43,7 +44,7 @@ function FeaturedList(props) {
             <div>@{createdBy}</div>
           </Box>
         </Grid>
-        <Grid container component={Paper} elevation={4} item xs={6}>
+        <Grid container component={Card} variant="outlined" item xs={6}>
           <Grid item xs={6}>
             <div>
               <div>{leftEntry.title}</div>
@@ -58,33 +59,35 @@ function FeaturedList(props) {
           </Grid>
         </Grid>
         <Grid item xs={2}>
-          <div>Rankings</div>
-          <TableContainer component={Paper} elevation={2}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>#</TableCell>
-                  <TableCell align="right">Title</TableCell>
-                  <TableCell align="right">Score</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map(({ title, score }, index) => {
-                  return (
-                    <TableRow key={title}>
-                      <TableCell>{index + 1}</TableCell>
-                      <TableCell align="right">{title}</TableCell>
-                      <TableCell align="right">{score}</TableCell>
-                    </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <Card variant="outlined">
+            <div>Rankings</div>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>#</TableCell>
+                    <TableCell align="right">Title</TableCell>
+                    <TableCell align="right">Score</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map(({ title, score }, index) => {
+                    return (
+                      <TableRow key={title}>
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell align="right">{title}</TableCell>
+                        <TableCell align="right">{score}</TableCell>
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Card>
         </Grid>
       </Grid>
     </div>
   )
 }
 
-export default FeaturedList;
+export default Cage;

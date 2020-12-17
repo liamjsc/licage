@@ -1,33 +1,59 @@
 import { connect } from "react-redux";
 import {
+  Card,
   CircularProgress,
   Container,
+  Grid,
+  makeStyles,
 } from '@material-ui/core';
 
-import FeaturedList from './FeaturedList/FeaturedList';
-import './Home.scss';
+import {
+  ActivityFeed,
+} from '../index';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
 
 function Home(props) {
-  const { 
-    featuredListId,
-    featuredListData,
+  const {
     listsLoading,
     listsLoaded,
     entriesById,
   } = props;
+  
+  const classes = useStyles();
   console.log('home props:')
   console.log(props);
   const notLoaded = !entriesById || listsLoading || !listsLoaded;
   return (
-    <div className="Home">
+    <div className={classes.root}>
       { (notLoaded) ? <CircularProgress /> : (
-        <Container>
-          <FeaturedList
-            id={featuredListId}
-            listData={featuredListData}
-            entriesById={entriesById}
-          />
-        </Container>
+        <div>
+          <Grid container spacing={1}>
+            <Grid item xs={3}>
+              <Card className={classes.paper}>
+                Left column
+              </Card>
+            </Grid>
+            <Grid item xs={6}>
+              <ActivityFeed />
+            </Grid>
+
+            <Grid item xs={3}>
+              <Card> className={classes.paper}
+                Right column
+              </Card>
+            </Grid>
+          </Grid>
+        </div>
       )}
     </div>
   )

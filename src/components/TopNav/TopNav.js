@@ -22,17 +22,19 @@ function TopNav(props = {}) {
         <div className="nav">
           <div className="nav-tab">
             <Link style={{ textDecoration: 'none' }} to="/about">
-              <Button color="primary">About</Button>
+              <Button>About</Button>
             </Link>
           </div>
           <div className="nav-tab">
-            <Button color="inherit">Favorites</Button>
+            <Link style={{ textDecoration: 'none' }} to="/browse">
+              <Button>Browse</Button>
+            </Link>
           </div>
           <div className="nav-tab">
-            <Button color="inherit">Community</Button>
+            <Button>Community</Button>
           </div>
           <div className="nav-tab">
-            <Button color="inherit">Create</Button>
+            <Button>Create</Button>
           </div>
         </div>
       </div>
@@ -52,15 +54,15 @@ function TopNav(props = {}) {
                 </Button>
               </Link>
             ) : (
-              <Link style={{ textDecoration: 'none' }} to="/login">
-                <Button
-                  color="secondary"
-                  variant="contained"
-                >
-                  Sign in
+                <Link style={{ textDecoration: 'none' }} to="/login">
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                  >
+                    Sign in
                 </Button>
-              </Link>
-            )
+                </Link>
+              )
           }
         </div>
         {/* <AccountCenter/> */}
