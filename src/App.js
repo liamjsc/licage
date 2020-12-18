@@ -2,9 +2,12 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { Route, Switch } from "react-router-dom";
-import { ThemeProvider } from '@material-ui/core';
+import { 
+  CssBaseline,
+  ThemeProvider, 
+  makeStyles,
+} from '@material-ui/core';
 
-import './App.scss';
 import theme from './theme';
 import { 
   About,
@@ -24,8 +27,15 @@ import {
 } from './actions/users';
 import { loadAllLists } from './actions/list';
 
+const useStyle = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.backgroundColor
+  }
+}));
+
 function App(props) {
   const { dispatch } = props;
+  const classes = useStyle();
   useEffect(() => {
     // check auth
     const user = getUserFromDevice();
@@ -50,7 +60,8 @@ function App(props) {
   }, []);
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
+      <CssBaseline/>
+      <div className={classes.root}>
         <Helmet>
           <title>cagematch</title>
         </Helmet>
@@ -64,7 +75,6 @@ function App(props) {
           <Route path="/@/:username"><UserPage /></Route>
           <Route path="/list/:listId"><ListDetail /></Route>
           <Route path="/"><Home /></Route>
-          {/* <Route path="/cage/:id"><CagePage /></Route> */}
         </Switch>
       </div>
     </ThemeProvider>

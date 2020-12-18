@@ -48,7 +48,7 @@ function Home(props) {
             </Grid>
 
             <Grid item xs={3}>
-              <Card> className={classes.paper}
+              <Card className={classes.paper}>
                 Right column
               </Card>
             </Grid>
