@@ -2,8 +2,6 @@
 
 .TopNav {
   height: 60px;
-  margin: 0 auto;
-  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -18,7 +16,7 @@
   height: 100%;
   
   .site-title {
-    margin: 0 1rem;
+    margin: 0 25px;
     font-size: 40px;
     color: $lightPurple;
   }

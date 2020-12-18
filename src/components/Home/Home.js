@@ -34,7 +34,7 @@ function Home(props) {
   console.log(props);
   const notLoaded = !entriesById || listsLoading || !listsLoaded;
   return (
-    <div className={classes.root}>
+    <Container className={classes.root}>
       { (notLoaded) ? <CircularProgress /> : (
         <div>
           <Grid container spacing={1}>
@@ -55,7 +55,7 @@ function Home(props) {
           </Grid>
         </div>
       )}
-    </div>
+    </Container>
   )
 }
 
