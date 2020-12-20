@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { Route, Switch } from "react-router-dom";
-import { 
+import {
   CssBaseline,
-  ThemeProvider, 
+  ThemeProvider,
   makeStyles,
 } from '@material-ui/core';
 
 import theme from './theme';
-import { 
+import {
   About,
   BrowsePage,
   Home,
@@ -17,7 +17,7 @@ import {
   TopNav,
   ListDetail,
   UserPage,
- } from './components/index';
+} from './components/index';
 import {
   getUserFromDevice,
   setUser,
@@ -36,46 +36,58 @@ const useStyle = makeStyles((theme) => ({
 function App(props) {
   const { dispatch } = props;
   const classes = useStyle();
+  const [userStatusResolved, setUserStatusResolved] = useState(false);
+
+  console.log('App.js render. userStatusResolved:', userStatusResolved);
   useEffect(() => {
     // check auth
     const user = getUserFromDevice();
     dispatch(setUser(user));
     if (user) {
       return dispatch(loadUser(user ? user.id : null))
-      .then(() => {
-        return dispatch(loadAllLists(user))
-          // .then(() => {
-          //   console.log('calling onAppReady', onAppReady);
-          //   onAppReady && onAppReady();
-          // })
-          .catch(() => {
-            console.log('error did mount App')
-          });
+        .then(() => {
+          return dispatch(loadAllLists(user))
+            .then(() => {
+              console.log('user found. calling setUserStatusResolved');
+              setUserStatusResolved(true);
+            })
+            .catch(() => {
+              console.log('error did mount App')
+            });
         })
-      .catch((error) => {
-        console.log(error);
-      })
+        .catch((error) => {
+          console.log(error);
+        })
     }
     return dispatch(loadAllLists())
+      .then(() => {
+        console.log('user not found. calling setUserStatusResolved');
+        setUserStatusResolved(true);
+      })
   }, []);
+
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline/>
+      <CssBaseline />
       <div className={classes.root}>
         <Helmet>
           <title>cagematch</title>
         </Helmet>
 
-        <TopNav/>
+        <TopNav />
 
-        <Switch>
-          <Route path="/about"><About /></Route>
-          <Route path="/login"><SignInPage /></Route>
-          <Route path="/browse"><BrowsePage /></Route>
-          <Route path="/@/:username"><UserPage /></Route>
-          <Route path="/list/:listId"><ListDetail /></Route>
-          <Route path="/"><Home /></Route>
-        </Switch>
+        {
+          !userStatusResolved ? null : (
+            <Switch>
+              <Route path="/about"><About /></Route>
+              <Route path="/login"><SignInPage /></Route>
+              <Route path="/browse"><BrowsePage /></Route>
+              <Route path="/@/:username"><UserPage /></Route>
+              <Route path="/list/:listId"><ListDetail /></Route>
+              <Route path="/"><Home /></Route>
+            </Switch>
+          )
+        }
       </div>
     </ThemeProvider>
   );

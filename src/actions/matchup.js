@@ -18,7 +18,6 @@ function findDiff(winnerScore, loserScore) {
 
 export function postMatchup(matchupDetails) {
   return function (dispatch, getState) {
-    console.log(url, 'post', matchupDetails);
     const { winner, loser, userId, listId } = matchupDetails;
     const { userRankings } = getState();
 

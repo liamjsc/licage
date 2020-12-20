@@ -72,7 +72,6 @@ function TopNav(props = {}) {
 }
 
 export default connect((state) => {
-  console.log(state);
   const { auth: { user } } = state;
   const displayName = user && (user.username || user.email)
   return {

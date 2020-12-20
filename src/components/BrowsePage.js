@@ -56,10 +56,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function BrowsePage(props) {
-  const { listIds, listsById } = useSelector(state => {
+  const { listIds, listsById, entriesById } = useSelector(state => {
     return {
       listIds: state.list.listIds,
       listsById: state.list.byId,
+      entriesById: state.entries.byId,
     }
   });
 
@@ -84,27 +85,37 @@ function BrowsePage(props) {
       </div>
       {gridView ? (
         <GridList spacing={3} className={classes.gridList}>
-
           {listIds.map(listId => {
             const {
               title,
-              description
+              description,
+              id,
+              createdBy,
+              matchupCount,
+              voterCount,
+              entries,
             } = listsById[listId];
+
+            const topEntry = entriesById[entries[0]];
             return (
-              <GridListTile 
-               onClick={() => goToListView(listId)}
-               col={2} 
-               row={2} 
-               className={classes.gridItem}
+              <GridListTile
+                key={id}
+                onClick={() => goToListView(listId)}
+                col={2}
+                row={2}
+                className={classes.gridItem}
               >
                 <Card elevation={2} className={classes.card}>
                   <div>{title}</div>
                   <div>{description}</div>
+                  <div>{`Created by ${createdBy}`}</div>
+                  <div>{`${matchupCount} matchups counted`}</div>
+                  <div>{`${voterCount} users voted`}</div>
+                  <img src={topEntry.image} />
                 </Card>
               </GridListTile>
             );
           })}
-
         </GridList>
       ) : (
           <Grid container spacing={3}>
@@ -114,9 +125,14 @@ function BrowsePage(props) {
                   const {
                     description,
                     title,
+                    id,
                   } = listsById[listId];
                   return (
-                    <ListItem onClick={() => goToListView(listId)} className={classes.listItem}>
+                    <ListItem
+                      key={id}
+                      onClick={() => goToListView(listId)}
+                      className={classes.listItem}
+                    >
                       <ListItemText>
                         <div>{title}</div>
                         <div>{description}</div>

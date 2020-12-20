@@ -3,7 +3,6 @@ import {
   Card,
   Divider,
   Grid,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -13,6 +12,11 @@ import {
   Typography,
   makeStyles,
 } from '@material-ui/core';
+import CageEntry from './CageEntry';
+import { loadList, fetchUserListRankings } from '../../actions/list';
+import { exclude, getExclusions } from '../../actions/auth';
+import { postMatchup } from '../../actions/matchup';
+import LinearWithProgress from '../ui/LinearWithProgress';
 
 const useStyles = makeStyles((theme) => ({
   cage: {
@@ -24,19 +28,26 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
   },
   cageEntry: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
     flexGrow: 1,
     borderBottom: `2px solid transparent`,
     borderTop: `2px solid transparent`,
+    width: '49%',
+    paddingBottom: '1rem',
+    paddingTop: '1rem',
     '&:hover': {
       borderBottom: `2px solid ${theme.palette.secondary.light}`,
       borderTop: `2px solid ${theme.palette.secondary.light}`,
       // backgroundColor: theme.palette.primary.dark,
     }
-  }
+  },
 }));
 
 function Cage(props) {
-  console.log(props);
+
   const {
     listData: {
       entries,
@@ -47,14 +58,17 @@ function Cage(props) {
       voterCount,
     },
     entriesById,
+    leftId,
+    rightId,
+    handleWinnerSelected,
   } = props;
 
   const rows = [...entries].sort((a, b) => {
     return entriesById[a].score > entriesById[b].score ? 1 : 0
   }).map(entryId => entriesById[entryId]).slice(0, 5);
 
-  const leftEntry = entriesById[entries[0]];
-  const rightEntry = entriesById[entries[1]];
+  const leftEntry = entriesById[leftId];
+  const rightEntry = entriesById[rightId];
 
   const classes = useStyles();
 
@@ -72,17 +86,26 @@ function Cage(props) {
           </Card>
         </Grid>
         <Grid item xs={6}>
-          <Card className={classes.cageCard}>
-            <div className={classes.cageEntry}>
-              <div>{leftEntry.title}</div>
-              <img src={leftEntry.image} />
-            </div>
-            <Divider orientation='vertical' flexItem/>
-            <div className={classes.cageEntry}>
-              <div>{rightEntry.title}</div>
-              <img src={rightEntry.image} />
-            </div>
-          </Card>
+          <div>
+            <Card className={classes.cageCard}>
+              <CageEntry
+                className={classes.cageEntry}
+                title={leftEntry.title}
+                image={leftEntry.image}
+                onClick={() => handleWinnerSelected(leftEntry.id)}
+              />
+              <Divider orientation='vertical' flexItem />
+              <CageEntry
+                className={classes.cageEntry}
+                title={rightEntry.title}
+                image={rightEntry.image}
+                onClick={() => handleWinnerSelected(rightEntry.id)}
+              />
+            </Card>
+          </div>
+          <div>
+            <LinearWithProgress value={40} />
+          </div>
         </Grid>
         <Grid item xs={3}>
           <Card variant="outlined">

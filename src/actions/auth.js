@@ -5,9 +5,10 @@ import { api } from '../config'
  * return user object or null
  */
 export function getUserFromDevice() {
-  console.log('getUserFromDevice');
   const userString = localStorage.getItem('user');
+  console.group('getUserFromDevice');
   console.log(userString);
+  console.groupEnd()
   return userString ? JSON.parse(userString) : null;;
 }
 
