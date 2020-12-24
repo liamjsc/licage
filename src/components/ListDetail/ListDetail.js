@@ -25,9 +25,7 @@ function loadQueue(candidateIds = []) {
   // for each ID, loop through all subsequent ID's and push the pair into results
   const res = [];
   candidateIds.forEach((id, index) => {
-    console.log(id);
     for (let i=index+1; i < candidateIds.length; i++) {
-      console.log([id, candidateIds[i]]);
       res.push([id, candidateIds[i]]);
     }
   });
@@ -48,10 +46,10 @@ function selectTwoEntries(candidateIds, currentLeft, currentRight) {
   while (validLength && (indexOne === indexTwo || isRepeat)) {
     indexTwo = Math.floor(Math.random() * candidateIds.length);
     isRepeat = [indexOne, indexTwo].indexOf(entryAId) >= 0 && [indexOne, indexTwo].indexOf(entryBId) >= 0;
-    console.log('isRepeat', isRepeat);
   }
 
-  return [candidateIds[indexOne], candidateIds[indexTwo]];
+  const ret = [candidateIds[indexOne], candidateIds[indexTwo]];
+  return ret;
 }
 
 function ListDetail(props) {
@@ -71,10 +69,6 @@ function ListDetail(props) {
   const { listId } = useParams();
 
   function loadCage() {
-    console.group('Load cage');
-    console.log('user:', user);
-    console.log('hiddenEntryIds:', hiddenEntryIds);
-    console.groupEnd();
     const { id: userId } = user || {};
     return dispatch(getExclusions(userId))
       .then(() => dispatch(loadList(listId)))
@@ -104,7 +98,6 @@ function ListDetail(props) {
     console.log(matchupResults);
 
     // need to increment voterCount on the listMeta
-    console.log('isNewUserForList', !!isNewUserForList);
     if (isNewUserForList) {
       console.log('increment voter count from handlePress Cage.js');
       dispatch({ type: actionTypes.INCREMENT_VOTER_COUNT, listId })
@@ -112,7 +105,7 @@ function ListDetail(props) {
 
     dispatch(postMatchup(matchupResults));
     
-    setMatchup(candidateIds, leftId, rightId);
+    setMatchup(selectTwoEntries(candidateIds, leftId, rightId));
   }
 
   return (
@@ -149,8 +142,6 @@ export default connect((state, ownProps) => {
     return path[path.length - 1];
   })();
   const hiddenEntryIds = exclusions[listId] || [];
-  console.log(window);
-  console.log('window');
   const { entries: entryIds = [] } = (listsById[listId] || {});
   const candidateIds = entryIds.filter(entryId => {
     return hiddenEntryIds.indexOf(entryId) < 0;;

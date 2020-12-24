@@ -37,6 +37,17 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: theme.palette.primary.dark,
     },
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  cardContent: {
+  },
+  cardImage: {
+    width: '30%',
+  },
+  highlight: {
+    color: theme.palette.secondary.light,
+    paddingRight: '4px',
   },
   listItem: {
     borderBottom: `1px solid ${theme.palette.text.primary}`,
@@ -105,13 +116,27 @@ function BrowsePage(props) {
                 row={2}
                 className={classes.gridItem}
               >
-                <Card elevation={2} className={classes.card}>
-                  <div>{title}</div>
-                  <div>{description}</div>
-                  <div>{`Created by ${createdBy}`}</div>
-                  <div>{`${matchupCount} matchups counted`}</div>
-                  <div>{`${voterCount} users voted`}</div>
-                  <img src={topEntry.image} />
+                <Card elevation={2}>
+                  <div className={classes.card}>
+                    <div className={classes.cardImage}>
+                      <img src={topEntry.image} />
+                    </div>
+                    <div>
+                      <div>{title}</div>
+                      <div>{description}</div>
+                      <List>
+                        <ListItem>
+                          <span className={classes.highlight}>{matchupCount}</span> matchups counted
+                        </ListItem>
+                        <ListItem>
+                          <span className={classes.highlight}>{voterCount}</span> users voted
+                        </ListItem>
+                        <ListItem>
+                          Created by &nbsp;<span className={classes.highlight}>@{createdBy}</span>
+                        </ListItem>
+                      </List>
+                    </div>
+                  </div>
                 </Card>
               </GridListTile>
             );
