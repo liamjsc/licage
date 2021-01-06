@@ -3,12 +3,6 @@ import {
   Card,
   Divider,
   Grid,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
   makeStyles,
 } from '@material-ui/core';
@@ -17,6 +11,7 @@ import { loadList, fetchUserListRankings } from '../../actions/list';
 import { exclude, getExclusions } from '../../actions/auth';
 import { postMatchup } from '../../actions/matchup';
 import LinearWithProgress from '../ui/LinearWithProgress';
+import Leaderboard from '../Leaderboard';
 
 const useStyles = makeStyles((theme) => ({
   cage: {
@@ -74,7 +69,9 @@ function Cage(props) {
 
   return (
     <div style={{ borderColor: 'teal', borderWidth: '1px' }}>
-      <Typography variant="h3">{title}</Typography>
+      <Box display="flex" justifyContent="center">
+        <Typography variant="h3">{title}</Typography>
+      </Box>
       <Grid container spacing={3} className={classes.cage}>
         <Grid variant="outlined" item xs={3}>
           <Card>
@@ -85,54 +82,35 @@ function Cage(props) {
             <div>@{createdBy}</div>
           </Card>
         </Grid>
-        <Grid item xs={6}>
-          <div>
-            <Card className={classes.cageCard}>
-              <CageEntry
-                className={classes.cageEntry}
-                title={leftEntry.title}
-                image={leftEntry.image}
-                onClick={() => handleWinnerSelected(leftEntry.id)}
-              />
-              <Divider orientation='vertical' flexItem />
-              <CageEntry
-                className={classes.cageEntry}
-                title={rightEntry.title}
-                image={rightEntry.image}
-                onClick={() => handleWinnerSelected(rightEntry.id)}
-              />
-            </Card>
-          </div>
-          <div>
-            <LinearWithProgress value={40} />
-          </div>
-        </Grid>
-        <Grid item xs={3}>
-          <Card variant="outlined">
-            <div>Rankings</div>
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>#</TableCell>
-                    <TableCell align="right">Title</TableCell>
-                    <TableCell align="right">Score</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map(({ title, score }, index) => {
-                    return (
-                      <TableRow key={title}>
-                        <TableCell>{index + 1}</TableCell>
-                        <TableCell align="right">{title}</TableCell>
-                        <TableCell align="right">{score}</TableCell>
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Card>
+        <Grid container item xs={9}>
+          <Box display="flex" flexDirection="column" width="100%">
+            <Box flexGrow="10">
+              <Card className={classes.cageCard}>
+                <CageEntry
+                  className={classes.cageEntry}
+                  title={leftEntry.title}
+                  image={leftEntry.image}
+                  onClick={() => handleWinnerSelected(leftEntry.id)}
+                />
+                <Divider orientation='vertical' flexItem />
+                <CageEntry
+                  className={classes.cageEntry}
+                  title={rightEntry.title}
+                  image={rightEntry.image}
+                  onClick={() => handleWinnerSelected(rightEntry.id)}
+                />
+              </Card>
+            </Box>
+            <div>
+              <LinearWithProgress value={40} />
+            </div>
+            <Grid item xs={6}>
+              <Leaderboard rows={rows} />
+            </Grid>
+            <Grid item xs={6}>
+              <Leaderboard rows={rows} />
+            </Grid>
+          </Box>
         </Grid>
       </Grid>
     </div>
