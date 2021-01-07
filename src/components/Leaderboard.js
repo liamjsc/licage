@@ -20,14 +20,14 @@ import { Link } from './index';
 function Leaderboard(props) {
   const {
     loaded = true,
-    rows,
+    rows, // { title, score, id }
     header = 'Leaderboard',
   } = props;
   if (!loaded) return null;
 
   return (
     <Card variant="outlined">
-      <CardHeader title={header}/>
+      { header && <CardHeader title={header}/> }
       <TableContainer>
         <Table>
           <TableBody>

@@ -65,9 +65,13 @@ function ListDetail(props) {
     isNewUserForList,
     dispatch,
     userListStats,
+    userRankings,
   } = props;
 
   const { listId } = useParams();
+
+  const userListResults = ((userRankings || {})[user.id] || {})[listId] || {};
+  const { rankings: userRankingsIds = [], records: userRecordsById = {} } = userListResults;
 
   function loadCage() {
     const { id: userId } = user || {};
@@ -120,6 +124,8 @@ function ListDetail(props) {
           rightId={rightId}
           handleWinnerSelected={handleClickEntry}
           userListStats={userListStats}
+          userRankingsIds={userRankingsIds}
+          userRecordsById={userRecordsById}
         />
       )}
     </Container>
@@ -136,6 +142,7 @@ export default connect((state, ownProps) => {
     entries: { byId: entriesById },
     auth: { exclusions, user },
     users,
+    userRankings,
   } = state;
   // const listId = '64f9f290-3f78-49e9-b731-909e9de36bac';
   
@@ -160,5 +167,6 @@ export default connect((state, ownProps) => {
     user,
     isNewUserForList,
     userListStats,
+    userRankings,
   }
 })(ListDetail);
