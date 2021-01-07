@@ -64,6 +64,7 @@ function ListDetail(props) {
     entryIdMap,
     isNewUserForList,
     dispatch,
+    userListStats,
   } = props;
 
   const { listId } = useParams();
@@ -118,6 +119,7 @@ function ListDetail(props) {
           leftId={leftId}
           rightId={rightId}
           handleWinnerSelected={handleClickEntry}
+          userListStats={userListStats}
         />
       )}
     </Container>
@@ -147,8 +149,8 @@ export default connect((state, ownProps) => {
     return hiddenEntryIds.indexOf(entryId) < 0;;
   });
 
-  const userListData = ((users.byId[user.id] || {}).listStats || {})[listId] || {};
-  const isNewUserForList = !(userListData && userListData.matchup_count > 0);
+  const userListStats = ((users.byId[user.id] || {}).listStats || {})[listId] || {};
+  const isNewUserForList = !(userListStats && userListStats.matchup_count > 0);
 
   return {
     candidateIds,
@@ -157,5 +159,6 @@ export default connect((state, ownProps) => {
     loaded,
     user,
     isNewUserForList,
+    userListStats,
   }
 })(ListDetail);
