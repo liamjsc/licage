@@ -83,7 +83,8 @@ export default function MyStats(props = {}) {
             <ShowChartIcon fontSize="large" />
           </ListItemIcon>
           <ListItemText
-            primary={`${userMatchupCount}  matchups counted`}
+            primary={userMatchupCount}
+            secondary="Matchups counted"
           />
         </ListItem>
 
