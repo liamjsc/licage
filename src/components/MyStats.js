@@ -62,7 +62,7 @@ export default function MyStats(props = {}) {
   const { matchup_count: userMatchupCount } = userListStats;
   return (
     <Card>
-      <CardHeader title="My Activity" />
+      <CardHeader title="My Stats" />
       <List className={classes.root}>
         {userRows.length && (<ListItem alignItems="flex-start">
           <ListItemIcon>
