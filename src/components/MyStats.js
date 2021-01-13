@@ -31,6 +31,9 @@ const useMyStatsStyles = makeStyles((theme) => ({
   },
   image: {
     width: '50%',
+  },
+  leaderBoard: {
+    width: '100%',
   }
 }));
 export default function MyStats(props = {}) {
@@ -94,7 +97,11 @@ export default function MyStats(props = {}) {
           {/* <ListItemIcon>
             <BarChartIcon fontSize="large" />
           </ListItemIcon> */}
-          <Leaderboard rows={userRows} />
+          <Leaderboard
+            rows={userRows}
+            count={3}
+            className={classes.leaderBoard}
+          />
         </ListItem>)}
       </List>
     </Card>

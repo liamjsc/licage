@@ -71,7 +71,7 @@ function Cage(props) {
 
   const rows = [...entries].sort((a, b) => {
     return entriesById[a].score > entriesById[b].score ? 1 : 0
-  }).map(entryId => entriesById[entryId]).slice(0, 5);
+  }).map(entryId => entriesById[entryId]);
 
   const leftEntry = entriesById[leftId];
   const rightEntry = entriesById[rightId];
@@ -118,15 +118,14 @@ function Cage(props) {
                 />
               </Card>
             </Box>
+
             <div>
-              <LinearWithProgress value={40} />
+              <LinearWithProgress value={13} />
             </div>
+
             <Box display="flex" flexDirection="row">
               <Grid item xs={6}>
-                <Leaderboard rows={rows} />
-              </Grid>
-              <Grid item xs={6}>
-                <Leaderboard rows={rows} />
+                <Leaderboard showRecord showHeader rows={rows} />
               </Grid>
             </Box>
 
